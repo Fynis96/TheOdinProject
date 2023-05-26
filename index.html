@@ -1,75 +1,40 @@
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-  margin: 0;
-  padding: 0;
-  background-color: #f2f2f2;
-}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="styles.css">
+  <title>Simple Calculator</title>
+</head>
+<body>
+  <div class="calculator">
+    <div class="display">
+      <input type="text" id="result" readonly>
+    </div>
+    <div class="buttons">
+      <button onclick="appendNumber('7')">7</button>
+      <button onclick="appendNumber('8')">8</button>
+      <button onclick="appendNumber('9')">9</button>
+      <button onclick="appendOperator('+')" class="operator">+</button>
+      <button onclick="appendNumber('4')">4</button>
+      <button onclick="appendNumber('5')">5</button>
+      <button onclick="appendNumber('6')">6</button>
+      <button onclick="appendOperator('-')" class="operator">-</button>
+      <button onclick="appendNumber('1')">1</button>
+      <button onclick="appendNumber('2')">2</button>
+      <button onclick="appendNumber('3')">3</button>
+      <button onclick="appendOperator('*')" class="operator">*</button>
+      <button onclick="appendNumber('0')">0</button>
+      <button onclick="appendNumber('.')">.</button>
+      <button onclick="calculate()" class="equal">=</button>
+      <button onclick="appendOperator('/')" class="operator">/</button>
+      <button onclick="appendParenthesis('(')">(</button>
+      <button onclick="appendParenthesis(')')">)</button>
+      <button onclick="clearResult()" class="clear">C</button>
+    </div>
+  </div>
 
-.calculator {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 320px;
-  height: 80vh;
-  border: 1px solid #ccc;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  background-color: #f9f9f9;
-}
-
-.display {
-  margin-bottom: 20px;
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  padding: 10px;
-}
-
-input[type="text"] {
-  width: 240px;
-  height: 60px;
-  padding: 10px;
-  font-size: 24px;
-  text-align: right;
-}
-
-.buttons {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-}
-
-button {
-  padding: 20px;
-  font-size: 24px;
-  text-align: center;
-  background-color: #eaeaea;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #d1d1d1;
-}
-
-button.operator {
-  background-color: #ff8c00;
-  color: #fff;
-}
-
-button.clear {
-  background-color: #ff4040;
-  color: #fff;
-}
-
-button.equal {
-  background-color: #4caf50;
-  color: #fff;
-}
+  <script src="script.js"></script>
+</body>
+</html>

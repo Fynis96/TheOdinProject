@@ -73,3 +73,8 @@ button.equal {
   background-color: #4caf50;
   color: #fff;
 }
+
+button.parenthesis {
+  background-color: #8f8f8f;
+  color: #fff;
+}

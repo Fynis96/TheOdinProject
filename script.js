@@ -1,18 +1,15 @@
 let currentResult = '';
 
-// Append a number to the current result
 function appendNumber(number) {
   currentResult += number;
   updateDisplay();
 }
 
-// Append an operator to the current result
 function appendOperator(operator) {
   currentResult += operator;
   updateDisplay();
 }
 
-// Calculate the result of the current expression
 function calculate() {
   try {
     const result = evaluateExpression(currentResult);
@@ -24,19 +21,16 @@ function calculate() {
   }
 }
 
-// Clear the current result
 function clearResult() {
   currentResult = '';
   updateDisplay();
 }
 
-// Update the display with the current result
 function updateDisplay() {
   const resultElement = document.getElementById('result');
   resultElement.value = currentResult;
 }
 
-// Evaluate the expression using postfix notation
 function evaluateExpression(expression) {
   const operators = {
     '+': (a, b) => a + b,
@@ -51,7 +45,6 @@ function evaluateExpression(expression) {
   return result;
 }
 
-// Tokenize the expression into numbers and operators
 function tokenizeExpression(expression) {
   const tokens = [];
   let currentToken = '';
@@ -61,6 +54,12 @@ function tokenizeExpression(expression) {
 
     if (isDigit(char) || char === '.') {
       currentToken += char;
+    } else if (char === '(' || char === ')') {
+      if (currentToken !== '') {
+        tokens.push(parseFloat(currentToken));
+        currentToken = '';
+      }
+      tokens.push(char);
     } else {
       if (currentToken !== '') {
         tokens.push(parseFloat(currentToken));
@@ -77,12 +76,10 @@ function tokenizeExpression(expression) {
   return tokens;
 }
 
-// Check if a character is a digit
 function isDigit(char) {
   return /^\d$/.test(char);
 }
 
-// Convert the expression to postfix notation (this one took a bit to figure out)
 function convertToPostfix(tokens) {
   const postfixTokens = [];
   const stack = [];
@@ -124,7 +121,6 @@ function convertToPostfix(tokens) {
   return postfixTokens;
 }
 
-// Evaluate the postfix notation expression
 function evaluatePostfix(postfixTokens, operators) {
   const stack = [];
 
@@ -145,7 +141,6 @@ function evaluatePostfix(postfixTokens, operators) {
   return stack.pop();
 }
 
-// Handle key press events
 function handleKeyPress(event) {
   const key = event.key;
 
@@ -157,8 +152,14 @@ function handleKeyPress(event) {
     calculate();
   } else if (key === 'Escape' || key === 'C') {
     clearResult();
+  } else if (key === '(' || key === ')') {
+    appendParenthesis(key);
   }
 }
 
-// Add event listener for keydown events
+function appendParenthesis(parenthesis) {
+  currentResult += parenthesis;
+  updateDisplay();
+}
+
 document.addEventListener('keydown', handleKeyPress);
