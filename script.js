@@ -1,12 +1,21 @@
 let currentResult = '';
+let hasDecimal = false;
 
 function appendNumber(number) {
+  if (number === '.' && hasDecimal) {
+    return; // Ignore additional decimal points
+  }
+
   currentResult += number;
+  if (number === '.') {
+    hasDecimal = true;
+  }
   updateDisplay();
 }
 
 function appendOperator(operator) {
   currentResult += operator;
+  hasDecimal = false; // Reset the flag when an operator is added
   updateDisplay();
 }
 
@@ -23,6 +32,7 @@ function calculate() {
 
 function clearResult() {
   currentResult = '';
+  hasDecimal = false; // Reset the flag when the result is cleared
   updateDisplay();
 }
 
@@ -48,24 +58,30 @@ function evaluateExpression(expression) {
 function tokenizeExpression(expression) {
   const tokens = [];
   let currentToken = '';
+  let hasDecimal = false;
 
   for (let i = 0; i < expression.length; i++) {
     const char = expression[i];
 
-    if (isDigit(char) || char === '.') {
+    if (isDigit(char)) {
       currentToken += char;
+    } else if (char === '.' && !hasDecimal) {
+      currentToken += char;
+      hasDecimal = true;
     } else if (char === '(' || char === ')') {
       if (currentToken !== '') {
         tokens.push(parseFloat(currentToken));
         currentToken = '';
       }
       tokens.push(char);
+      hasDecimal = false;
     } else {
       if (currentToken !== '') {
         tokens.push(parseFloat(currentToken));
         currentToken = '';
       }
       tokens.push(char);
+      hasDecimal = false;
     }
   }
 
@@ -154,12 +170,17 @@ function handleKeyPress(event) {
     clearResult();
   } else if (key === '(' || key === ')') {
     appendParenthesis(key);
+  } else if (key === '.') {
+    appendDecimal();
   }
 }
 
-function appendParenthesis(parenthesis) {
-  currentResult += parenthesis;
-  updateDisplay();
+function appendDecimal() {
+  if (!hasDecimal) {
+    currentResult += '.';
+    hasDecimal = true;
+    updateDisplay();
+  }
 }
 
 document.addEventListener('keydown', handleKeyPress);
