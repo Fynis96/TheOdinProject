@@ -3,61 +3,102 @@ let cpScore = 0;
 let round = 0;
 let gameOver = false;
 
+const spanPcScore = document.querySelector('.player-score');
+const spanCpScore = document.querySelector('.computer-score');
+const divResult = document.querySelector('.results');
+
 function computerPlay() {
-  const options = ['Rock', 'Paper', 'Scissors'];
-  const randomNumber = Math.floor(Math.random() * options.length);
-  return options[randomNumber];
+    const options = ['Rock', 'Paper', 'Scissors'];
+    const randomNumber = Math.floor(Math.random() * options.length);
+    return options[randomNumber];
+}
+
+function disableButtons() {
+    const buttons = document.querySelectorAll('.button');
+    buttons.forEach(button => {
+        button.disabled = true;
+        button.classList.add('disabled');
+    });
+}
+
+function enableButtons() {
+    const buttons = document.querySelectorAll('.button');
+    buttons.forEach(button => {
+        button.disabled = false;
+        button.classList.remove('disabled');
+    });
 }
 
 function play(pc, cp) {
-  if (
-    (pc === 'Rock' && cp === 'Scissors') ||
-    (pc === 'Paper' && cp === 'Rock') ||
-    (pc === 'Scissors' && cp === 'Paper')
-  ) {
-    showMessage("Congratulations, you beat the guy.");
-    pcScore++;
-    divScore.textContent = `Player Score: ${pcScore} | Computer Score: ${cpScore}`;
-    if (pcScore >= 5) {
-      divResult.textContent = 'Player Wins!';
+    if (gameOver) {
+        return;
     }
-    return 'win';
-  } else if (
-    (cp === 'Rock' && pc === 'Scissors') ||
-    (cp === 'Paper' && pc === 'Rock') ||
-    (cp === 'Scissors' && pc === 'Paper')
-  ) {
+
+    if (pc === cp) {
+        showMessage("Y'all chose the same thing");
+        return 'tie';
+    }
+
+    const playerWins = (pc === 'Rock' && cp === 'Scissors') ||
+        (pc === 'Paper' && cp === 'Rock') ||
+        (pc === 'Scissors' && cp === 'Paper');
+
+    if (playerWins) {
+        showMessage("Congratulations, you beat the guy.");
+        pcScore++;
+        spanPcScore.textContent = pcScore;
+        if (pcScore >= 5) {
+            divResult.textContent = 'Player Wins!';
+            gameOver = true;
+            disableButtons();
+            toggleReplayButton(true);
+        }
+        return 'win';
+    }
+
     showMessage("Computer Wins.");
     cpScore++;
+    spanCpScore.textContent = cpScore;
+    if (cpScore >= 5) {
+        divResult.textContent = 'Computer Wins!';
+        gameOver = true;
+        disableButtons();
+        toggleReplayButton(true);
+    }
     return 'lose';
-  } else if (
-    (pc === 'Rock' && cp === 'Rock') ||
-    (pc === 'Paper' && cp === 'Paper') ||
-    (pc === 'Scissors' && cp === 'Scissors')
-  ) {
-    showMessage("Y'all chose the same thing");
-    return 'tie';
-
-    const playerScoreElement = document.querySelector('.player-score');
-  playerScoreElement.textContent = playerScore;
-
-    const computerScoreElement = document.querySelector('.computer-score');
-  computerScoreElement.textContent = computerScore;
-  }
 }
 
 function handleButtonClick(event) {
-  const choice = event.target.innerHTML;
-  play(choice, computerPlay());
-  console.log(choice.toLowerCase());
+    const choice = event.target.innerHTML;
+    play(choice, computerPlay());
+    console.log(choice.toLowerCase());
 }
 
 function showMessage(message) {
-  const messageBox = document.querySelector('.message');
-  messageBox.textContent = message;
+    const messageBox = document.querySelector('.message');
+    messageBox.textContent = message;
+}
+
+function toggleReplayButton(show) {
+    const replayButton = document.querySelector('.replay-button');
+    replayButton.classList.toggle('hidden', !show);
+}
+
+function resetGame() {
+    pcScore = 0;
+    cpScore = 0;
+    gameOver = false;
+    spanPcScore.textContent = '0';
+    spanCpScore.textContent = '0';
+    divResult.textContent = 'Take your pick.';
+    enableButtons();
+    toggleReplayButton(false);
+}
+
+function handleReplayClick() {
+    resetGame();
+    showMessage("New game started. Good luck!");
 }
 
 document.querySelector(".buttonbox").addEventListener('click', handleButtonClick);
-
-const divScore = document.querySelector('.score');
-const divResult = document.querySelector('.results');
+document.querySelector('.replay-button').addEventListener('click', handleReplayClick);
