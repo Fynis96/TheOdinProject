@@ -35,7 +35,9 @@ function updateDisplay() {
   const resultElement = document.getElementById('result');
   resultElement.value = currentResult;
 }
-
+//Evaluates the arithmetic expression using the Shunting Yard algorithm. 
+//It tokenizes the expression, converts it to postfix notation, 
+//and then evaluates the postfix expression.
 function evaluateExpression(expression) {
   const operators = {
     '+': (a, b) => a + b,
@@ -49,7 +51,7 @@ function evaluateExpression(expression) {
   const result = evaluatePostfix(postfixTokens, operators);
   return result;
 }
-
+//Tokenizes the arithmetic expression into individual tokens (numbers, operators, and parentheses).
 function tokenizeExpression(expression) {
   const tokens = [];
   let currentToken = '';
@@ -90,7 +92,8 @@ function tokenizeExpression(expression) {
 function isDigit(char) {
   return /^\d$/.test(char);
 }
-
+//Converts the tokenized expression from infix notation 
+//to postfix notation using the Shunting Yard algorithm.
 function convertToPostfix(tokens) {
   const postfixTokens = [];
   const stack = [];
