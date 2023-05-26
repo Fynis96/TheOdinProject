@@ -1,21 +1,12 @@
 let currentResult = '';
-let hasDecimal = false;
 
 function appendNumber(number) {
-  if (number === '.' && hasDecimal) {
-    return; // Ignore additional decimal points
-  }
-
   currentResult += number;
-  if (number === '.') {
-    hasDecimal = true;
-  }
   updateDisplay();
 }
 
 function appendOperator(operator) {
   currentResult += operator;
-  hasDecimal = false; // Reset the flag when an operator is added
   updateDisplay();
 }
 
@@ -32,7 +23,11 @@ function calculate() {
 
 function clearResult() {
   currentResult = '';
-  hasDecimal = false; // Reset the flag when the result is cleared
+  updateDisplay();
+}
+
+function backspace() {
+  currentResult = currentResult.slice(0, -1);
   updateDisplay();
 }
 
@@ -172,15 +167,37 @@ function handleKeyPress(event) {
     appendParenthesis(key);
   } else if (key === '.') {
     appendDecimal();
+  } else if (key === 'Backspace') {
+    backspace();
   }
 }
 
 function appendDecimal() {
-  if (!hasDecimal) {
-    currentResult += '.';
-    hasDecimal = true;
-    updateDisplay();
+  const lastOperatorIndex = findLastOperatorIndex(currentResult);
+  const lastDecimalIndex = currentResult.lastIndexOf('.');
+
+  if (lastDecimalIndex > lastOperatorIndex) {
+    // Ignore additional decimal points within the current number
+    return;
   }
+
+  currentResult += '.';
+  updateDisplay();
+}
+
+function findLastOperatorIndex(expression) {
+  const operators = ['+', '-', '*', '/'];
+  let lastOperatorIndex = -1;
+
+  for (let i = 0; i < operators.length; i++) {
+    const operator = operators[i];
+    const index = expression.lastIndexOf(operator);
+    if (index > lastOperatorIndex) {
+      lastOperatorIndex = index;
+    }
+  }
+
+  return lastOperatorIndex;
 }
 
 document.addEventListener('keydown', handleKeyPress);

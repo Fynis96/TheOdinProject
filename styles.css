@@ -74,7 +74,8 @@ button.equal {
   color: #fff;
 }
 
-button.parenthesis {
-  background-color: #8f8f8f;
+button.backspace {
+  grid-column: span 2;
+  background-color: #f44336;
   color: #fff;
 }
