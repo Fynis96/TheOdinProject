@@ -1,22 +1,27 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>RockPaperScissors</title>
-        <link rel="stylesheet" href="styles.css">
-    </head>
-    <body>
-        <div class="resultsbox">
-            <div class="results"><p>Take your pick.</p></div>
-            <div class="score"><p>Score:</p></div>
+  <head>
+    <meta charset="utf-8">
+    <title>RockPaperScissors</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="resultsbox">
+        <div class="results">Take your pick.</div>
+        <div class="score">
+          <p>Player Score: <span class="player-score">0</span></p>
+          <p>Computer Score: <span class="computer-score">0</span></p>
         </div>
-        <div class="buttonbox">
-            <button class="button" class="Rock">Rock</button>
-            <button class="button" class="Paper">Paper</button>
-            <button class="button" class="Scissors">Scissors</button>
-        </div>
+        <div class="message"></div>
+      </div>
+      <div class="buttonbox">
+        <button class="button">Rock</button>
+        <button class="button">Paper</button>
+        <button class="button">Scissors</button>
+      </div>
+    </div>
 
-
-        <script type="text/javascript" src="script.js"></script>
-    </body>
+    <script type="text/javascript" src="script.js"></script>
+  </body>
 </html>

@@ -1,43 +1,51 @@
-.resultsbox {
-    position:relative;
-    top:300px;
-    margin-left:34.5%;
-    flex: 1;
-    flex-direction:column;
-    align-content:center;
-    justify-content:center;
-    border:2px;
-    border-style:solid;
-    border-color: blue;
-    width:300px;
-    height:100px;
-}
-.results{
-   font-size:20px;
-   text-align:center;
-   display:block;
-}
-.score{ 
-    font-size:20px;
-    text-align:center;
-    display:block;
-}
-
-.buttonbox {
+.container {
     display: flex;
-    flex: 1;
-    min-height: 100vh;
+    flex-direction: column;
     align-items: center;
-    justify-content: space-evenly;
-    border-color: blue;
-    margin-top: -50px;
-}
-.button {
-    width:90px;
-    height:90px;
-    font-size:40px;
-
-    
-
-}
-
+    justify-content: flex-start;
+    height: 100vh;
+    padding-top: 20px;
+  }
+  .resultsbox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid blue;
+    width: 300px;
+    height: auto;
+    padding: 20px;
+    margin-bottom: 40px;
+  }
+  
+  .results {
+    font-size: 24px;
+    text-align: center;
+  }
+  
+  .score {
+    font-size: 20px;
+    text-align: center;
+  }
+  
+  .buttonbox {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+  }
+  
+  .button {
+    width: 150px;
+    height: 90px;
+    font-size: 32px;
+    margin: 5px;
+  }
+  
+  .message {
+    font-size: 16px;
+    text-align: center;
+    margin-top: 10px;
+    color: #333;
+  }
